@@ -25,6 +25,7 @@ export default class TodoList extends Component {
   }
   addTodo(event) {
     event.preventDefault();
+    document.querySelector(".todo-input").value="";
     
     this.setState((prevState) => {
       return {
