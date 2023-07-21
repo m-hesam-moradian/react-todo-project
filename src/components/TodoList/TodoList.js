@@ -19,21 +19,33 @@ export default class TodoList extends Component {
     // this.statusHandler = this.statusHandler.bind(this)
   }
 
-    removeTodo(event) {
-      console.log(event);
-  }
-
+  
   inputGether(event) {
     this.setState({ todoTitle: event.target.value });
   }
   addTodo(event) {
     event.preventDefault();
-
+    
     this.setState((prevState) => {
-      return { todos: [...prevState.todos, this.state.todoTitle] };
+      return {
+        todos: [
+          ...prevState.todos,
+          { todo: this.state.todoTitle, id: this.state.todos.length },
+        ],
+      };
     });
   }
+  
+  removeTodo(id) {
+    
+    const afterDeleteArray = this.state.todos.filter(obj=>obj.id!=id)
+    
+  
+      this.setState({ todos: afterDeleteArray });
 
+
+   
+  }
   render() {
     return (
       <>
@@ -60,9 +72,10 @@ export default class TodoList extends Component {
         <div className="todo-container">
           <ul className="todo-list">
             {this.state.todos &&
-              this.state.todos.map((todo,index) => (
-                <Todo title={todo} id={index} removeTodo={this.removeTodo} />
-              ))}
+              this.state.todos.map((obj) => (
+                <Todo title={obj.todo} id={obj.id} removeTodo={this.removeTodo} />
+                ))}
+                
           </ul>
         </div>
       </>
