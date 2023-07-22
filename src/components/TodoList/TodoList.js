@@ -13,40 +13,76 @@ export default class TodoList extends Component {
 
     this.addTodo = this.addTodo.bind(this);
     this.inputGether = this.inputGether.bind(this);
-    this.removeTodo = this.removeTodo.bind(this);
+    this.removeBtn = this.removeBtn.bind(this);
+    this.checkedBTn = this.checkedBTn.bind(this);
+
     // this.editTodo = this.editTodo.bind(this)
     // this.todoTitleHandler = this.todoTitleHandler.bind(this)
     // this.statusHandler = this.statusHandler.bind(this)
   }
 
-  
   inputGether(event) {
     this.setState({ todoTitle: event.target.value });
   }
   addTodo(event) {
     event.preventDefault();
-    document.querySelector(".todo-input").value="";
-    
+    document.querySelector(".todo-input").value = "";
+
     this.setState((prevState) => {
       return {
         todos: [
           ...prevState.todos,
-          { todo: this.state.todoTitle, id: this.state.todos.length },
+          {
+            todo: this.state.todoTitle,
+            id: this.state.todos.length,
+            status: false,
+          },
         ],
       };
     });
   }
-  
-  removeTodo(id) {
-    
-    const afterDeleteArray = this.state.todos.filter(obj=>obj.id!=id)
-    
-  
-      this.setState({ todos: afterDeleteArray });
 
+  removeBtn(id) {
+    const afterDeleteArray = this.state.todos.filter((obj) => obj.id != id);
 
-   
+    this.setState({ todos: afterDeleteArray });
   }
+  checkedBTn(id) {
+    // console.log(id);
+
+    const afterDeleteArray = this.state.todos.filter((obj) => obj.id != id);
+
+    const selectedObject = this.state.todos.filter((obj) => obj.id == id);
+
+
+    
+    selectedObject[0].status = !selectedObject[0].status;
+    // console.log(afterDeleteArray);
+    // console.log(selectedObject);
+    // const mergeArray = [...afterDeleteArray, ...selectedObject];
+    // console.log(mergeArray);
+
+    this.setState({ todos: [...afterDeleteArray, ...selectedObject] });
+    // console.log(this.setState.todos);
+
+    //     console.log(id);
+    //        const afterDeleteArray = this.state.todos.filter((obj) => obj.id == id);
+    //       //  afterDeleteArray[0].status = true;
+    //       console.log(afterDeleteArray);
+    //     this.setState((prevState) => {
+    //       prevState.todos.map((obj) => {
+
+    //           if (obj.id == id) {
+
+    //             return {
+
+    //                 }
+    //           }
+    //       })
+    // }
+    //   )
+  }
+
   render() {
     return (
       <>
@@ -71,12 +107,39 @@ export default class TodoList extends Component {
         </form>
 
         <div className="todo-container">
-          <ul className="todo-list">
+          {/* <ul className="todo-list">
             {this.state.todos &&
               this.state.todos.map((obj) => (
-                <Todo title={obj.todo} id={obj.id} removeTodo={this.removeTodo} />
-                ))}
-                
+                <Todo
+                  title={obj.todo}
+                  id={obj.id}
+                  removeBtn={this.removeBtn}
+                  checkedBTn={this.checkedBTn}
+                  status={obj.status}
+                />
+              ))}
+          </ul> */}
+          <ul className="todo-list">
+   
+            {this.state.todos &&
+              this.state.todos.map((obj) => {
+                let checkClasses="todo ";
+                if (obj.status) {
+                  
+                 checkClasses = "todo completed ";
+                } 
+
+                return (
+                  <Todo
+                    // key={obj.id}
+                    title={obj.todo}
+                    id={obj.id}
+                    removeBtn={this.removeBtn}
+                    checkedBTn={this.checkedBTn}
+                    checkClasses={checkClasses}
+                  />
+                );
+              })}
           </ul>
         </div>
       </>

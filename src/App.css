@@ -79,6 +79,12 @@ form button:hover {
   font-size: 1.5rem;
   transition: all 0.5s ease;
 }
+.checked {
+  background-color: rgba(255, 255, 255, 0.6);
+  text-decoration: line-through
+    ;
+
+}
 
 form input,
 .todo {
@@ -117,6 +123,7 @@ form input,
 .todo-item {
   padding: 0rem 1.2rem;
 }
+
 
 .fa-trash,
 .fa-check {

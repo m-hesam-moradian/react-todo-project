@@ -2,15 +2,20 @@ import React, { Component } from "react";
 
 export default class Todo extends Component {
   TrashBtn() {
-    this.props.removeTodo(this.props.id);
+    this.props.removeBtn(this.props.id);
   }
+  oncheck() {
+    this.props.checkedBTn(this.props.id);
+
+  }
+
   render() {
     return (
       // 'completed' class for completed todos
-      <div className="todo" style={{ display: "flex" }}>
+      <div className={this.props.checkClasses} style={{ display: "flex" }}>
         <li className="todo-item">{this.props.title}</li>
 
-        <button className="check-btn ">
+        <button className="check-btn " onClick={this.oncheck.bind(this)}>
           <i className="fas fa-check" aria-hidden="true"></i>
         </button>
 
