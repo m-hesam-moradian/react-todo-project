@@ -48,21 +48,22 @@ export default class TodoList extends Component {
     this.setState({ todos: afterDeleteArray });
   }
   checkedBTn(id) {
-    // console.log(id);
+    const editedArray = this.state.todos;
+    const index = this.state.todos.findIndex((obj) => obj.id === id);
+    editedArray[index].status = !editedArray[index].status;
+  
+    this.setState({ todos: editedArray });
 
-    const afterDeleteArray = this.state.todos.filter((obj) => obj.id != id);
+    // const afterDeleteArray = this.state.todos.filter((obj) => obj.id != id);
+    // const selectedObject = this.state.todos.filter((obj) => obj.id == id);
+    // selectedObject[0].status = !selectedObject[0].status;
+    // this.setState({ todos: [...afterDeleteArray, ...selectedObject] });
 
-    const selectedObject = this.state.todos.filter((obj) => obj.id == id);
-
-
-    
-    selectedObject[0].status = !selectedObject[0].status;
     // console.log(afterDeleteArray);
     // console.log(selectedObject);
     // const mergeArray = [...afterDeleteArray, ...selectedObject];
     // console.log(mergeArray);
 
-    this.setState({ todos: [...afterDeleteArray, ...selectedObject] });
     // console.log(this.setState.todos);
 
     //     console.log(id);
@@ -120,14 +121,12 @@ export default class TodoList extends Component {
               ))}
           </ul> */}
           <ul className="todo-list">
-   
             {this.state.todos &&
               this.state.todos.map((obj) => {
-                let checkClasses="todo ";
+                let checkClasses = "todo ";
                 if (obj.status) {
-                  
-                 checkClasses = "todo completed ";
-                } 
+                  checkClasses = "todo completed ";
+                }
 
                 return (
                   <Todo
