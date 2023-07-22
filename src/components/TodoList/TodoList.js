@@ -16,9 +16,7 @@ export default class TodoList extends Component {
     this.removeBtn = this.removeBtn.bind(this);
     this.checkedBTn = this.checkedBTn.bind(this);
 
-    // this.editTodo = this.editTodo.bind(this)
-    // this.todoTitleHandler = this.todoTitleHandler.bind(this)
-    // this.selector = this.selector.bind(this);
+
   }
 
   inputGether(event) {
@@ -90,21 +88,9 @@ export default class TodoList extends Component {
         </form>
 
         <div className="todo-container">
-          {/* <ul className="todo-list">
-            {this.state.todos &&
-              this.state.todos.map((obj) => (
-                <Todo
-                  title={obj.todo}
-                  id={obj.id}
-                  removeBtn={this.removeBtn}
-                  checkedBTn={this.checkedBTn}
-                  status={obj.status}
-                />
-              ))}
-          </ul> */}
+
           <ul className="todo-list">
-            
-            {this.state.todos &&
+            {this.state.status == "all" &&
               this.state.todos.map((obj) => {
                 let checkClasses = "todo ";
                 if (obj.status) {
@@ -122,6 +108,46 @@ export default class TodoList extends Component {
                   />
                 );
               })}
+            {this.state.status == "completed" &&
+              this.state.todos
+                .filter((obj) => obj.status)
+                .map((obj) => {
+                  let checkClasses = "todo ";
+                  if (obj.status) {
+                    checkClasses = "todo completed ";
+                  }
+
+                  return (
+                    <Todo
+                      // key={obj.id}
+                      title={obj.todo}
+                      id={obj.id}
+                      removeBtn={this.removeBtn}
+                      checkedBTn={this.checkedBTn}
+                      checkClasses={checkClasses}
+                    />
+                  );
+                })}
+            {this.state.status == "uncompleted" &&
+              this.state.todos
+                .filter((obj) => !obj.status)
+                .map((obj) => {
+                  let checkClasses = "todo ";
+                  if (obj.status) {
+                    checkClasses = "todo completed ";
+                  }
+
+                  return (
+                    <Todo
+                      // key={obj.id}
+                      title={obj.todo}
+                      id={obj.id}
+                      removeBtn={this.removeBtn}
+                      checkedBTn={this.checkedBTn}
+                      checkClasses={checkClasses}
+                    />
+                  );
+                })}
           </ul>
         </div>
       </>
