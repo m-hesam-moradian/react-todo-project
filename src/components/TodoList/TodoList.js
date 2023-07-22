@@ -18,7 +18,7 @@ export default class TodoList extends Component {
 
     // this.editTodo = this.editTodo.bind(this)
     // this.todoTitleHandler = this.todoTitleHandler.bind(this)
-    // this.statusHandler = this.statusHandler.bind(this)
+    // this.selector = this.selector.bind(this);
   }
 
   inputGether(event) {
@@ -51,38 +51,16 @@ export default class TodoList extends Component {
     const editedArray = this.state.todos;
     const index = this.state.todos.findIndex((obj) => obj.id === id);
     editedArray[index].status = !editedArray[index].status;
-  
+
     this.setState({ todos: editedArray });
-
-    // const afterDeleteArray = this.state.todos.filter((obj) => obj.id != id);
-    // const selectedObject = this.state.todos.filter((obj) => obj.id == id);
-    // selectedObject[0].status = !selectedObject[0].status;
-    // this.setState({ todos: [...afterDeleteArray, ...selectedObject] });
-
-    // console.log(afterDeleteArray);
-    // console.log(selectedObject);
-    // const mergeArray = [...afterDeleteArray, ...selectedObject];
-    // console.log(mergeArray);
-
-    // console.log(this.setState.todos);
-
-    //     console.log(id);
-    //        const afterDeleteArray = this.state.todos.filter((obj) => obj.id == id);
-    //       //  afterDeleteArray[0].status = true;
-    //       console.log(afterDeleteArray);
-    //     this.setState((prevState) => {
-    //       prevState.todos.map((obj) => {
-
-    //           if (obj.id == id) {
-
-    //             return {
-
-    //                 }
-    //           }
-    //       })
-    // }
-    //   )
   }
+
+  selector(event) {
+    console.log(event.target.value);
+    
+      this.setState({ status: event.target.value });
+    }
+  
 
   render() {
     return (
@@ -99,7 +77,11 @@ export default class TodoList extends Component {
             <i className="fas fa-plus-square"></i>
           </button>
           <div className="select">
-            <select name="todos" className="filter-todo">
+            <select
+              name="todos"
+              className="filter-todo"
+              onChange={(event) => this.selector(event)}
+            >
               <option value="all">All</option>
               <option value="completed">Completed</option>
               <option value="uncompleted">Uncompleted</option>
@@ -121,6 +103,7 @@ export default class TodoList extends Component {
               ))}
           </ul> */}
           <ul className="todo-list">
+            
             {this.state.todos &&
               this.state.todos.map((obj) => {
                 let checkClasses = "todo ";
